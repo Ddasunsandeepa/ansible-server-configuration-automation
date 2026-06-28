@@ -1,0 +1,10 @@
+---
+package_state: present
+
+nginx_package: nginx
+
+docker_package: docker.io
+
+devops_user: devops
+
+timezone: Asia/Colombo

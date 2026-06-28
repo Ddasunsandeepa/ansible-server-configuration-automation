@@ -1,0 +1,30 @@
+---
+- name: Update Ubuntu Servers
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade installed packages
+      apt:
+        upgrade: dist
+
+    - name: Remove unnecessary packages
+      apt:
+        autoremove: yes
+
+    - name: Clean apt cache
+      apt:
+        autoclean: yes
+
+    - name: Show uptime
+      command: uptime
+      register: uptime_output
+      changed_when: false
+
+    - debug:
+        var: uptime_output.stdout

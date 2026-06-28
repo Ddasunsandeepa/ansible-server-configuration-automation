@@ -1,0 +1,14 @@
+---
+- name: Configure Complete Infrastructure
+  hosts: all
+  become: true
+
+  roles:
+
+    - common
+
+    - users
+
+    - docker
+
+    - nginx

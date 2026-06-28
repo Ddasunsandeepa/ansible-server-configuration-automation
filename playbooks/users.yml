@@ -1,0 +1,27 @@
+---
+- name: Create DevOps User
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Create devops user
+      user:
+        name: devops
+        shell: /bin/bash
+        create_home: yes
+        state: present
+
+    - name: Add devops user to sudo group
+      user:
+        name: devops
+        groups: sudo
+        append: yes
+
+    - name: Verify user
+      command: id devops
+      register: user_info
+      changed_when: false
+
+    - debug:
+        var: user_info.stdout

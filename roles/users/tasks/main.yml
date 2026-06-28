@@ -1,0 +1,23 @@
+---
+- name: Create DevOps Users
+  user:
+    name: "{{ item }}"
+    shell: "{{ default_shell }}"
+    create_home: yes
+    state: present
+  loop: "{{ default_users }}"
+
+- name: Add DevOps Users to sudo group
+  user:
+    name: "{{ item }}"
+    groups: sudo
+    append: yes
+  loop: "{{ default_users }}"
+
+- name: Verify User Creation
+  command: id devops
+  register: user_info
+  changed_when: false
+
+- debug:
+    var: user_info.stdout
